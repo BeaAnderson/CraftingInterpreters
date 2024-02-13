@@ -3,7 +3,7 @@ Implementation of book Crafting interpreters written by Robert Nystrom
 
 Followed for the purpose of my professional development
 
-To run this project you should compile it using javac *.class from the lox package
+To run this project you should compile it using javac *.java from the lox package
 
 From the root directory then run java -classpath . com.fdmgroup.lox.Lox
 
