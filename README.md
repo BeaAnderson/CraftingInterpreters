@@ -5,7 +5,7 @@ Followed for the purpose of my professional development
 
 To run this project you should compile it using javac *.java from the lox package
 
-From the root directory then run java -classpath . com.fdmgroup.lox.Lox
+From the root directory then run java -classpath . com.beacodeart.lox.Lox
 
 if you pass in a file location you can run lox code from a file, otherwise you can execute lines individually.
 
