@@ -1,7 +1,6 @@
 package com.beacodeart.lox;
 
 import java.util.List;
-import java.util.function.UnaryOperator;
 
 import static com.beacodeart.lox.TokenType.*;
 
