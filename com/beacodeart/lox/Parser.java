@@ -10,14 +10,18 @@ import static com.beacodeart.lox.TokenType.*;
  * recursive decent parser
  */
 class Parser {
+	//error handling
 	private static class ParseError extends RuntimeException {}
+	//input
 	private final List<Token> tokens;
+	//current list position
 	private int current = 0;
 
 	public Parser(List<Token> tokens) {
 		this.tokens = tokens;
 	}
 
+	//entry point into our parser
 	Expr parse(){
 		try{
 			return expression();
@@ -26,6 +30,7 @@ class Parser {
 		}
 	}
 
+	
 	private Expr expression(){
 		return equality();
 	}
