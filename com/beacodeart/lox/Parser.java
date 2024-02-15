@@ -6,6 +6,8 @@ import static com.beacodeart.lox.TokenType.*;
 
 /**
  * Parser
+ * 
+ * recursive decent parser
  */
 class Parser {
 	private static class ParseError extends RuntimeException {}
