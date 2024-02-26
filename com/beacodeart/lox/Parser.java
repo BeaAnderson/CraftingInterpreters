@@ -8,6 +8,9 @@ import static com.beacodeart.lox.TokenType.*;
  * Parser
  * 
  * recursive decent parser
+ * which means that the series of tokens is evaluated in order of presedence, with
+ * each type of expression calling the next higher presedence operation first
+ * then evaluating it's own state
  */
 class Parser {
 	//error handling
@@ -30,11 +33,12 @@ class Parser {
 		}
 	}
 
-	
+	//for now expressions are not parsed	
 	private Expr expression(){
 		return equality();
 	}
-
+	
+	//evaluates equality operations
 	private Expr equality(){
 		Expr expr = comparison();
 
@@ -47,6 +51,7 @@ class Parser {
 		return expr;
 	}
 
+	// evaluates comparison operations
 	private Expr comparison(){
 		Expr expr = term();
 
@@ -59,6 +64,7 @@ class Parser {
 		return expr;
 	}
 
+	//evaluates addition and subtraction 
 	private Expr term(){
 		Expr expr = factor();
 
@@ -71,6 +77,7 @@ class Parser {
 		return expr;
 	}
 
+	//evaluates division and multiplication
 	private Expr factor(){
 		Expr expr = unary();
 
@@ -83,6 +90,7 @@ class Parser {
 		return expr;
 	}
 
+	//evaluates not eqaul or minus number
 	private Expr unary(){
 		if (match(BANG, MINUS)){
 			Token operator = previous();
@@ -92,7 +100,8 @@ class Parser {
 
 		return primary();
 	}
-
+	
+	//evaluates key words and literal expression
 	private Expr primary(){
 		if (match(FALSE)) return new Expr.Literal(false);
 		if (match(TRUE)) return new Expr.Literal(true);
@@ -111,6 +120,9 @@ class Parser {
 		throw error(peek(), "Expect expression");
 	}
 
+	//Helper functions
+	//
+	//boolean current tokeb matches given token
 	private boolean match(TokenType... types){
 		for (TokenType type: types){
 			if (check(type)) {
@@ -122,39 +134,47 @@ class Parser {
 		return false;
 	}
 
+	// if current tolen matches current token advances
 	private Token consume(TokenType type, String  message){
 		if (check(type)) return advance();
 
 		throw error(peek(), message);
 	}
-
+	
+	//if current token equals passed in tooken true
 	private boolean check(TokenType type){
 		if (isAtEnd()) return false;
 		return peek().type == type;
 	}
-
+	
+	//advances tokeen then returns the previous token, which was the current token when the function was called
 	private Token advance(){
 		if (!isAtEnd()) current++;
 		return previous();
 	}
-
+	
+	//tells us if we are at the end of the file
 	private boolean isAtEnd(){
 		return peek().type == EOF;
 	}
 
+	//looks at teh current token
 	private Token peek(){
 		return tokens.get(current);
 	}
-
+	
+	//gets the previous token
 	private Token previous() {
 		return tokens.get(current -1);
 	}
-
+	
+	//throws error
 	private ParseError error(Token token, String message){
 		Lox.error(token, message);
 		return new ParseError();
 	}
-
+	
+	//not used yet
 	private void synchronize(){
 		advance();
 
