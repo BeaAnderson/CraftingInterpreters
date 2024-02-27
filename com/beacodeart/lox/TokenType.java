@@ -1,5 +1,7 @@
 package com.beacodeart.lox;
 
+//every possible type a token can be
+//allows our interpreter to know what it is dealing with
 enum TokenType {
 	
 	LEFT_PAREN, RIGHT_PAREN, LEFT_BRACE, RIGHT_BRACE,
