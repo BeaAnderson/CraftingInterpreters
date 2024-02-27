@@ -1,5 +1,6 @@
 package com.beacodeart.lox;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.beacodeart.lox.TokenType.*;
@@ -25,18 +26,27 @@ class Parser {
 	}
 
 	//entry point into our parser
-	Expr parse(){
-		try{
-			return expression();
-		} catch (ParseError error) {
-			return null;
+	List<Stmt> parse(){
+		List<Stmt> statements = new ArrayList<>();
+		while (!isAtEnd()){
+			statements.add(statement());
 		}
+
+		return statements;
 	}
 
 	//for now expressions are not parsed	
 	private Expr expression(){
 		return equality();
 	}
+
+	private Stmt statement(){
+		if (match(PRINT)) return printStatement();
+
+		return expressionStatement();
+	}
+
+	private Stmt printStatement 
 	
 	//evaluates equality operations
 	private Expr equality(){
