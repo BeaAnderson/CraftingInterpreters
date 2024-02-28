@@ -1,5 +1,7 @@
 package com.beacodeart.lox;
 
+import com.beacodeart.lox.Expr.Visitor;
+
 abstract class Stmt {
 	
 	public class Expression extends Stmt{
