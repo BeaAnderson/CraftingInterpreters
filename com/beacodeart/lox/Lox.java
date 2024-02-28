@@ -75,13 +75,13 @@ public class Lox {
 		System.out.println(tokens);
 				
 		Parser parser = new Parser(tokens);
-		Expr expression = parser.parse();
+		List<Stmt> statements = parser.parse();
 
 		if (hadError) return;
 
-		System.out.println(new AstPrinter().print(expression));
+		//System.out.println(new AstPrinter().print(statements));
 
-		interpreter.interpret(expression);
+		interpreter.interpret(statements);
 	}
 
 	//various error classes

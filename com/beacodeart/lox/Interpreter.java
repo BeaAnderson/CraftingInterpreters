@@ -1,14 +1,16 @@
 package com.beacodeart.lox;
 
+import java.util.List;
 
 //our interpreter uses the visitor pattern
-class Interpreter implements Expr.Visitor<Object> {
+class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
 	
 	//calls the entry point into the interpreter
-	void interpret (Expr expression){
+	void interpret (List<Stmt> statements){
 		try {
-			Object value = evaluate(expression);
-			System.out.println(stringify(value));
+			for (Stmt statement: statements){
+				execute(statement);
+			}
 		} catch (RuntimeError error){
 			Lox.runtimeError(error);
 		}
@@ -17,6 +19,23 @@ class Interpreter implements Expr.Visitor<Object> {
 	//from the expression the accept method calls the appropriate visit method of this Interpreter class
 	private Object evaluate (Expr expr){
 		return expr.accept(this);
+	}
+
+	private void execute(Stmt stmt){
+		stmt.accept(this);
+	}
+
+	@Override
+	public Void visitExpressionStmt(Stmt.Expression stmt){
+		evaluate(stmt.expression);
+		return null;
+	}
+
+	@Override
+	public Void visitPrintStmt(Stmt.Print stmt){
+		Object value = evaluate(stmt.expression);
+		System.out.println(stringify(value));
+		return null;
 	}
 	
 	//handles all cases of binary expression

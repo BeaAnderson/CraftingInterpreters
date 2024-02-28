@@ -1,30 +1,31 @@
 package com.beacodeart.lox;
 
-import com.beacodeart.lox.Expr.Visitor;
-
 abstract class Stmt {
-	
-	public class Expression extends Stmt{
+	interface Visitor<R> {
+    	R visitExpressionStmt(Expression stmt);
+    	R visitPrintStmt(Print stmt);
+  	}
+	static class Expression extends Stmt{
 		Expression(Expr expression){
 			this.expression = expression;
 		}
 
 		@Override
 		<R> R accept(Visitor<R> visitor){
-			return visitor.VisitExpressionStmt(this);
+			return visitor.visitExpressionStmt(this);
 		}
 
 		final Expr expression;
 	}
 
-	public class Print extends Stmt{
+	static class Print extends Stmt{
 		Print(Expr expression){
 			this.expression = expression;
 		}
 
 		@Override
 		<R> R accept(Visitor<R> visitor){
-			return visitor.VisitPrintStmt(this);
+			return visitor.visitPrintStmt(this);
 		}
 
 		final Expr expression;	
