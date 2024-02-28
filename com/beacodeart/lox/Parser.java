@@ -26,6 +26,7 @@ class Parser {
 	}
 
 	//entry point into our parser
+	//with the new statement class we create a list of statements
 	List<Stmt> parse(){
 		List<Stmt> statements = new ArrayList<>();
 		while (!isAtEnd()){
@@ -35,17 +36,20 @@ class Parser {
 		return statements;
 	}
 
-	//for now expressions are not parsed	
+	//for now expressions just returns equality
 	private Expr expression(){
 		return equality();
 	}
 
+	//for now only 2 types of statement, print statements and expression statements
 	private Stmt statement(){
 		if (match(PRINT)) return printStatement();
 
 		return expressionStatement();
 	}
 
+	//both our statements take in an expression and the difference is how they are interpreted
+	//statements are separated by semicolons
 	private Stmt printStatement(){
 		Expr value = expression();
 		consume(SEMICOLON, "Expect ';' after value.");

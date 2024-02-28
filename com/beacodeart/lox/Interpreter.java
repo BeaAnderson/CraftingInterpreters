@@ -21,16 +21,20 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
 		return expr.accept(this);
 	}
 
+	//visitor pattern the specific statement calls the method relevant to it
 	private void execute(Stmt stmt){
+		//the accept method calls the visitClassStmt
 		stmt.accept(this);
 	}
 
+	//evaluate returns an object, but for now we are not doing anything with that value
 	@Override
 	public Void visitExpressionStmt(Stmt.Expression stmt){
 		evaluate(stmt.expression);
 		return null;
 	}
 
+	//for print the value returned from evaluate is printed to the standard output
 	@Override
 	public Void visitPrintStmt(Stmt.Print stmt){
 		Object value = evaluate(stmt.expression);
