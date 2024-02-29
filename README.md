@@ -7,7 +7,9 @@ To run this project you should compile it using javac *.java from the lox packag
 
 From the root directory then run java -classpath . com.beacodeart.lox.Lox
 
-if you pass in a file location you can run lox code from a file, otherwise you can execute lines individually.
+Otherwise the code can be run using right click run java in vscode
+
+If you pass in a file location you can run lox code from a file, otherwise you can execute lines individually.
 
 Right now the interpreter can evaluate aritmetic expressions and concatinate strings. In order to display the output of these evaluations, run the program and enter print expression;
 
