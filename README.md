@@ -19,4 +19,6 @@ print "hello" + " world"; // output hello world
 
 print 9+3*6; // output 27 following order of operations where division and multiplication have higher precedence than addition
 
+print 9+3*6 // output error expected ; after expression
+
 See https://craftinginterpreters.com/the-lox-language.html for documentation on the language and https://github.com/munificent/craftinginterpreters for the source material.
