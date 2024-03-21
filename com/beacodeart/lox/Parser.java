@@ -41,6 +41,7 @@ class Parser {
 		return assignment();
 	}
 
+	//declaration recognise var then return variable or return statement
 	private Stmt declaration(){
 		try {
 			if (match(VAR)) return varDeclaration();
@@ -68,14 +69,18 @@ class Parser {
 		return new Stmt.Print(value);
 	}
 
+	//assign or initialise variable
 	private Stmt varDeclaration(){
+		//after var we need a name for that variable
 		Token name = consume(IDENTIFIER, "Expect variable name");
 
+		//then we need an assignment operator and we assign expression to that variable
 		Expr initializer = null;
 		if (match(EQUAL)){
 			initializer = expression();
 		}
 
+		//otherwise we can declare but not initialise that variable
 		consume(SEMICOLON, "Expect ';' after variable declaration");
 		return new Stmt.Var(name, initializer);
 	}
